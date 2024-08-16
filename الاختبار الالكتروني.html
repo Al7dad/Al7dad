@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم الوايت لست</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #121212; /* خلفية داكنة */
+            color: #e0e0e0; /* لون النص */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background: #1e1e1e; /* خلفية داكنة للفورم */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            margin: 20px;
+            color: #e0e0e0;
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #333333;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-size: 16px;
+            font-weight: bold;
+            color: #e0e0e0;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .language-toggle:hover {
+            background: #444444;
+            color: #9b59b6;
+        }
+
+        form {
+            padding: 30px;
+            border-radius: 15px;
+            background: #1e1e1e;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #e0e0e0;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: #e0e0e0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #555555;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #2c2c2c;
+            color: #e0e0e0;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #9b59b6;
+            box-shadow: 0 0 8px rgba(155, 89, 182, 0.6);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #9b59b6;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #8e44ad;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                max-width: 90%;
+                height: auto;
+            }
+
+            form {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .language-toggle {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            form {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-toggle" onclick="toggleLanguage()">English</div>
+
+        <form id="adminForm">
+            <h1 id="formTitle">نموذج اختبار اكتروني</h1>
+            <label for="name" id="nameLabel">اسمك الحقيقي</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="discordUsername" id="discordUsernameLabel">اسمك في نظام الدولة (الدسكورد)</label>
+            <input type="text" id="discordUsername" name="discordUsername" required>
+
+            <label for="birthdate" id="birthdateLabel">تاريخ ميلادك</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <label for="micQuality" id="micQualityLabel">جودة المايك لديك ممتازة وقد تم تجربتها في عالم سامب؟</label>
+            <textarea id="micQuality" name="micQuality" rows="4" required></textarea>
+
+            <label for="previousExperience" id="previousExperienceLabel">هل لديك خبرة سابقة في تقمص الشخصيات؟ اكتب عنها بالتفصيل</label>
+            <textarea id="previousExperience" name="previousExperience" rows="4" required></textarea>
+
+            <label for="characterStory" id="characterStoryLabel">ماهي قصة الشخصية؟ (القصص القصيرة لا تقبل، كلما كانت قصتك أعمق في التفاصيل زادت نسبة قبولك (مع عدم اهمال الأسئلة الأخرى) ) + يوجد تعريف لكيفية الكتابة في الديسكورد يرجى مراجعته قبل كتابة القصه.</label>
+            <textarea id="characterStory" name="characterStory" rows="4" required></textarea>
+
+            <label for="serverReason" id="serverReasonLabel">ماهو سبب رغبتك في دخول سيرفر منطقة نجد؟</label>
+            <textarea id="serverReason" name="serverReason" rows="4" required></textarea>
+
+            <label for="characterInfo" id="characterInfoLabel">اسم الشخصية الأول والأخير وتاريخ ميلادها والمنشئ واللغة واللهجة الخاصة بالشخصية مع العلم ان المنشئ يجب ان يكون من عالم سامب يستثنى في حال ربط القصة بمكان في الخارج منشئ نيويورك او لوس انجلوس ممنوع واستبداله بمناطق سامب وشوارعها</label>
+            <textarea id="characterInfo" name="characterInfo" rows="4" required></textarea>
+
+            <label for="fakeDrugs" id="fakeDrugsLabel">لديك نوع مغشوش من المخدرات تريد بيعه وقد اخترت موقع عصابة مشهورة لتبيع فيه لزيادة ربحك ولكن اكتشف أحد زبائنك ان المخدرات مغشوشة وبلغ العصابة وتم تهديدك بالسلاح من قبلهم ماذا ستفعل؟</label>
+            <textarea id="fakeDrugs" name="fakeDrugs" rows="4" required></textarea>
+
+            <label for="debtScenario" id="debtScenarioLabel">لقد أوقعت نفسك في موقف حرج انت تدين لعصابة 25000$ والتي يجب عليك سدادها في غضون ساعات قليلة، ما يمكن أن تكون الطريقة القانونية للحصول على هذه الأموال وتصرفك مع هذا الموقف ؟</label>
+            <textarea id="debtScenario" name="debtScenario" rows="4" required></textarea>
+
+            <label for="carRobbery" id="carRobberyLabel">أنت تقوم بإصلاح سيارتك وقام شخص بسحب سلاحه خلفك ويقولك ارمي اغراضك وسلمني مفاتيح سيارتك. ماذا ستقول وماذا ستفعل في هذه الحالة ؟ جاوب بالتفصيل</label>
+            <textarea id="carRobbery" name="carRobbery" rows="4" required></textarea>
+
+            <label for="hospitalThreat" id="hospitalThreatLabel">اثناء علاجك في المشفى وانت اعزل دخل شخص مسلح وقام بتهديدك وامرك بانصياع الأوامر والذهاب معه وانت تعلم بوجود رجل امن في الغرفة المجاورة ما هو التصرف الصحيح؟</label>
+            <textarea id="hospitalThreat" name="hospitalThreat" rows="4" required></textarea>
+
+            <label for="confrontation" id="confrontationLabel">بعد بلاغك عن شخص وانت اعزل تعرض لك في احدى الأماكن النائية بسلاح ناري وسرق منك الاثمان الموجودة لديك رأيت نفس الشخص في نقطة طلق نار بينه وبين الشرطة ماذا ستفعل ولماذا؟</label>
+            <textarea id="confrontation" name="confrontation" rows="4" required></textarea>
+
+            <button type="submit" id="submitButton">إرسال</button>
+        </form>
+    </div>
+
+    <script>
+        const languages = {
+            ar: {
+                formTitle: "نموذج تقديم الوايت لست",
+                nameLabel: "اسمك الحقيقي",
+                discordUsernameLabel: "اسمك في نظام الدولة (الدسكورد)",
+                birthdateLabel: "تاريخ ميلادك",
+                micQualityLabel: "جودة المايك لديك ممتازة وقد تم تجربتها في عالم سامب؟",
+                previousExperienceLabel: "هل لديك خبرة سابقة في تقمص الشخصيات؟ اكتب عنها بالتفصيل",
+                characterStoryLabel: "ماهي قصة الشخصية؟ (القصص القصيرة لا تقبل، كلما كانت قصتك أعمق في التفاصيل زادت نسبة قبولك (مع عدم اهمال الأسئلة الأخرى) ) + يوجد تعريف لكيفية الكتابة في الديسكورد يرجى مراجعته قبل كتابة القصه.",
+                serverReasonLabel: "ماهو سبب رغبتك في دخول سيرفر منطقة نجد؟",
+                characterInfoLabel: "اسم الشخصية الأول والأخير وتاريخ ميلادها والمنشئ واللغة واللهجة الخاصة بالشخصية مع العلم ان المنشئ يجب ان يكون من عالم سامب يستثنى في حال ربط القصة بمكان في الخارج منشئ نيويورك او لوس انجلوس ممنوع واستبداله بمناطق سامب وشوارعها",
+                fakeDrugsLabel: "لديك نوع مغشوش من المخدرات تريد بيعه وقد اخترت موقع عصابة مشهورة لتبيع فيه لزيادة ربحك ولكن اكتشف أحد زبائنك ان المخدرات مغشوشة وبلغ العصابة وتم تهديدك بالسلاح من قبلهم ماذا ستفعل؟",
+                debtScenarioLabel: "لقد أوقعت نفسك في موقف حرج انت تدين لعصابة 25000$ والتي يجب عليك سدادها في غضون ساعات قليلة، ما يمكن أن تكون الطريقة القانونية للحصول على هذه الأموال وتصرفك مع هذا الموقف ؟",
+                carRobberyLabel: "أنت تقوم بإصلاح سيارتك وقام شخص بسحب سلاحه خلفك ويقولك ارمي اغراضك وسلمني مفاتيح سيارتك. ماذا ستقول وماذا ستفعل في هذه الحالة ؟ جاوب بالتفصيل",
+                hospitalThreatLabel: "اثناء علاجك في المشفى وانت اعزل دخل شخص مسلح وقام بتهديدك وامرك بانصياع الأوامر والذهاب معه وانت تعلم بوجود رجل امن في الغرفة المجاورة ما هو التصرف الصحيح؟",
+                confrontationLabel: "بعد بلاغك عن شخص وانت اعزل تعرض لك في احدى الأماكن النائية بسلاح ناري وسرق منك الاثمان الموجودة لديك رأيت نفس الشخص في نقطة طلق نار بينه وبين الشرطة ماذا ستفعل ولماذا؟",
+                submitButton: "إرسال",
+                toggleText: "English"
+            },
+            en: {
+                formTitle: "Admin Application Form",
+                nameLabel: "Full Name",
+                discordUsernameLabel: "Discord Username",
+                birthdateLabel: "Your Birthdate",
+                micQualityLabel: "Is your mic quality excellent and has it been tested in the samp world?",
+                previousExperienceLabel: "Do you have previous experience in character roleplay? Write about it in detail.",
+                characterStoryLabel: "What is your character's story? (Short stories are not accepted, the deeper your story, the higher your acceptance rate (without neglecting other questions)) + there is a guide on how to write in Discord, please review it before writing the story.",
+                serverReasonLabel: "Why do you want to join the Najd region server?",
+                characterInfoLabel: "Character's first and last name, birthdate, creator, language, and accent with the note that the creator must be from the SAMB world, except in cases where the story is linked to a place outside SAMB. New York or Los Angeles creators are prohibited and should be replaced with SAMB areas and streets.",
+                fakeDrugsLabel: "You have a fake type of drug you want to sell and chose a famous gang's location to sell it for higher profit, but one of your customers discovered the drugs were fake and reported the gang, and you were threatened with a weapon. What will you do?",
+                debtScenarioLabel: "You have put yourself in a critical situation where you owe a gang $25,000 and must repay it within a few hours. What could be a legal way to get this money and how would you handle this situation?",
+                carRobberyLabel: "You are fixing your car and someone pulls a gun behind you and says, 'Drop your stuff and give me your car keys.' What will you say and what will you do in this situation? Answer in detail.",
+                hospitalThreatLabel: "While you are being treated in the hospital and are alone, an armed person enters and threatens you to comply and go with them, knowing there is a security guard in the next room. What is the correct action?",
+                confrontationLabel: "After reporting a person while you are alone and they attacked you in a remote location with a firearm and stole your money, you see the same person in a shootout with the police. What will you do and why?",
+                submitButton: "Submit",
+                toggleText: "عربي"
+            }
+        };
+
+        let currentLanguage = 'ar';
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const lang = languages[currentLanguage];
+            document.getElementById('formTitle').innerText = lang.formTitle;
+            document.getElementById('nameLabel').innerText = lang.nameLabel;
+            document.getElementById('discordUsernameLabel').innerText = lang.discordUsernameLabel;
+            document.getElementById('birthdateLabel').innerText = lang.birthdateLabel;
+            document.getElementById('micQualityLabel').innerText = lang.micQualityLabel;
+            document.getElementById('previousExperienceLabel').innerText = lang.previousExperienceLabel;
+            document.getElementById('characterStoryLabel').innerText = lang.characterStoryLabel;
+            document.getElementById('serverReasonLabel').innerText = lang.serverReasonLabel;
+            document.getElementById('characterInfoLabel').innerText = lang.characterInfoLabel;
+            document.getElementById('fakeDrugsLabel').innerText = lang.fakeDrugsLabel;
+            document.getElementById('debtScenarioLabel').innerText = lang.debtScenarioLabel;
+            document.getElementById('carRobberyLabel').innerText = lang.carRobberyLabel;
+            document.getElementById('hospitalThreatLabel').innerText = lang.hospitalThreatLabel;
+            document.getElementById('confrontationLabel').innerText = lang.confrontationLabel;
+            document.getElementById('submitButton').innerText = lang.submitButton;
+            document.querySelector('.language-toggle').innerText = lang.toggleText;
+        }
+
+        document.getElementById('adminForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const discordUsername = document.getElementById('discordUsername').value;
+            const experience = document.getElementById('experience').value;
+            const reason = document.getElementById('reason').value;
+            const birthdate = document.getElementById('birthdate').value;
+            const micQuality = document.getElementById('micQuality').value;
+            const previousExperience = document.getElementById('previousExperience').value;
+            const characterStory = document.getElementById('characterStory').value;
+            const serverReason = document.getElementById('serverReason').value;
+            const characterInfo = document.getElementById('characterInfo').value;
+            const fakeDrugs = document.getElementById('fakeDrugs').value;
+            const debtScenario = document.getElementById('debtScenario').value;
+            const carRobbery = document.getElementById('carRobbery').value;
+            const hospitalThreat = document.getElementById('hospitalThreat').value;
+            const confrontation = document.getElementById('confrontation').value;
+
+            const webhookUrl = 'Webhook here';
+
+            const message = {
+    embeds: [
+        {
+            title: "نموذج اختبار الكتروني جديد",
+            color: 3447003, // لون أزرق للامبيد
+            fields: [
+                {
+                    name: "👤 اسمك الحقيقي",
+                    value: name,
+                    inline: true
+                },
+                {
+                    name: "🎮 اسمك في نظام الدولة (الدسكورد)",
+                    value: discordUsername,
+                    inline: true
+                },
+                {
+                    name: "📅 تاريخ ميلادك",
+                    value: birthDate,
+                    inline: true
+                },
+                {
+                    name: "🎙 جودة المايك",
+                    value: micQuality,
+                    inline: true
+                },
+                {
+                    name: "🎭 خبرة في تقمص الشخصيات",
+                    value: roleplayExperience,
+                    inline: false
+                },
+                {
+                    name: "📖 قصة الشخصية",
+                    value: characterStory,
+                    inline: false
+                },
+                {
+                    name: "🎯 سبب دخول السيرفر",
+                    value: serverReason,
+                    inline: false
+                },
+                {
+                    name: "📝 تفاصيل الشخصية",
+                    value: characterDetails,
+                    inline: false
+                },
+                {
+                    name: "💊 سيناريو المخدرات المغشوشة",
+                    value: fakeDrugs,
+                    inline: false
+                },
+                {
+                    name: "💵 سيناريو الديون",
+                    value: debtScenario,
+                    inline: false
+                },
+                {
+                    name: "🚗 سيناريو سرقة السيارة",
+                    value: carRobbery,
+                    inline: false
+                },
+                {
+                    name: "🏥 سيناريو التهديد في المستشفى",
+                    value: hospitalThreat,
+                    inline: false
+                },
+                {
+                    name: "🔫 سيناريو المواجهة بعد البلاغ",
+                    value: confrontation,
+                    inline: false
+                }
+            ],
+            footer: {
+                text: currentLanguage === 'ar' ? 'تم الإرسال عبر نموذج الاختبارالالكتروني' : 'Submitted via Application Form'
+            },
+            timestamp: new Date()
+        }
+    ]
+};
+
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(message)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('تم إرسال النموذج بنجاح!');
+                document.getElementById('adminForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء إرسال النموذج.');
+            });
+        });
+
+        // Initialize form with the default language
+        updateLanguage();
+    </script>
+</body>
+</html>
